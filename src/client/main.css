@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    font-family: Menlo;
+}
+.playground {
+    align-items: stretch;
+    height: 100%;
+    display: flex;
+}
+.editor {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    .cm-wrap {
+        flex:1;
+        min-height: 300px;
+        width: 100%;
+        border: 0;
+        outline: none;
+        position: relative;
+        display: flex;
+        // padding: 20px;
+        font-size: 15px;
+        resize: none;
+        flex-direction: column;
+        .CodeMirror {
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            flex: 1;
+            font-family: Menlo;
+        }
+    }
+    .errors {
+        white-space: pre;
+        background: rgba(255, 0, 0, 0.07);
+        padding: 20px;
+    }
+}
+.tester {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.tests {
+    flex: 1;
+    overflow: scroll;
+
+}
+.test {
+    border-left: 5px solid #f66;
+    position: relative;
+    box-shadow: 0 1px 0 #ddd;
+    margin-bottom: 1px;
+    &.match {
+        border-left-color: #61e885;
+    }
+    input {
+        border: 0;
+        outline: none;
+        font-size: 15px;
+        font-family: Menlo;
+        padding: 20px;
+        width: 100%;
+        padding-right: 50px;
+        box-sizing: border-box;
+    }
+    .output {
+        // display: none;
+        color: #777;
+        padding: 5px 20px;
+        padding-bottom: 20px
+    }
+    // input:focus + .output {
+    //     display: block;
+    // }
+}
+.test-add {
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 -1px 0px #ddd;
+    z-index: 1;
+}
+.test-x {
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 0;
+    padding: 0 20px;
+    cursor: pointer;
+}

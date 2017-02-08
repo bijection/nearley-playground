@@ -1,0 +1,17 @@
+.CodeMirror-matchingbracket {
+    outline: 0 !important;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 1px 2px;
+    margin: -1px -2px;
+}
+.cm-keyword {
+    color: #b713a8 !important;
+}
+.cm-string {
+    font-style: italic;
+}
+
+.cm-variable {
+    // color: #920000 !important;
+}
