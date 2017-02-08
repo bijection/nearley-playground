@@ -43,6 +43,12 @@ CodeMirror.defineMode("nearley", config =>
             close: "%}",
             mode: CodeMirror.getMode(config, "javascript"),
             delimStyle: "js-delimit"
+        },
+        {   
+            open: /^\s*#/,
+            close: /.$/,
+            mode: CodeMirror.getMode(config, "text/plain"),
+            delimStyle: "comment-delimit"
         }
     )
 )

@@ -11,7 +11,9 @@
 .cm-string {
     font-style: italic;
 }
-
+.cm-comment-delimit-open {
+    color: #ccc;
+}
 .cm-variable {
     // color: #920000 !important;
 }
