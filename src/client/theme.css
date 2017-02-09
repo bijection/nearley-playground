@@ -14,6 +14,12 @@
 .cm-comment-delimit-open {
     color: #ccc;
 }
+.cm-comment-delimit-close {
+    color: #676767;
+}
 .cm-variable {
     // color: #920000 !important;
+}
+.cm-js-delimit {
+    color: #4624c7 !important;
 }

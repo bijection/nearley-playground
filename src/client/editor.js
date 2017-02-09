@@ -46,7 +46,7 @@ CodeMirror.defineMode("nearley", config =>
         },
         {   
             open: /^\s*#/,
-            close: /.$/,
+            close: /.*$/,
             mode: CodeMirror.getMode(config, "text/plain"),
             delimStyle: "comment-delimit"
         }
@@ -114,6 +114,7 @@ export default class Editor extends Component {
     }
     render(){
         return <div className='editor'>
+            <div className='shadow'/>
             <div className='cm-wrap' ref='wrap'></div>
             {this.state.errors.length 
                 ? <div className='errors'>{this.state.errors}</div>
