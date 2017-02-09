@@ -60,10 +60,11 @@ export default class Editor extends Component {
         errors: ''
     };
     componentDidMount(){
-        if(localStorage.raw_grammar) this.compile(localStorage.raw_grammar);
+        let initial_val = localStorage.raw_grammar || require('raw-loader!./arithmetic.ne')
+        this.compile(initial_val);
         var cm = CodeMirror(this.refs.wrap, {
             mode: 'nearley',
-            value: localStorage.raw_grammar || '',
+            value: initial_val,
             tabSize: 4,
             matchBrackets: true,
             autoCloseBrackets: true,

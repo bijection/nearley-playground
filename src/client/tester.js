@@ -4,10 +4,10 @@ import Inspector from 'react-inspector'
 
 export default class Tester extends Component {
     state = {
-        tests: [''],
+        tests: ['1 + 1', 'ln(5 + sin(3 + 4*e))'],
     };
     componentDidMount(){
-        if(localStorage.tests) this.setState({
+        if(localStorage.tests && JSON.parse(localStorage.tests).length) this.setState({
             tests: JSON.parse(localStorage.tests)
         })
     }
@@ -32,7 +32,7 @@ export default class Tester extends Component {
     }
     render(){
         return <div className='tester' onKeyPress={e => {
-            if(e.key === 'Enter') this.addTest()
+            if(e.key === 'Enter' && e.shiftKey) this.addTest()
         }}>
             <div className='tests'>
                 {this.state.tests.map((t, i) => 
@@ -69,11 +69,17 @@ class Test extends Component {
             // console.log(e, this.props)
         }
 
+        setImmediate(e => {
+            if(!this.refs.input) return
+            this.refs.input.style.height = 0
+            this.refs.input.style.height = this.refs.input.scrollHeight
+        })
+
         return <div className={'test ' + (output ? 'match' : '')}>
             <div className='test-x' onClick={this.props.deleteTest}>
                 <div>{'\u00d7'}</div>
             </div>
-            <input 
+            <textarea 
                 ref='input'
                 placeholder="Type a test..."
                 onInput={e => this.props.setTest(e.target.value)}

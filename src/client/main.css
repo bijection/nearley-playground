@@ -3,9 +3,35 @@ body {
     font-family: Menlo;
 }
 .playground {
-    align-items: stretch;
     height: 100%;
     display: flex;
+    flex-direction: column;
+    .header {
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+        .titles {
+            margin: 0 -20px;
+            margin-top: 20px;
+            display: flex;
+            font-weight: bold;
+            // text-align: center;
+            .lp {
+                padding-left: 20px;
+            }
+            .grammar-title {
+                flex: 2
+            }
+            .examples-title {
+                flex:1;
+                box-sizing: border-box;
+            }
+        }
+    }
+}
+.playground-body {
+    align-items: stretch;
+    display: flex;
+    flex: 1;
 }
 .editor {
     flex: 2;
@@ -14,7 +40,6 @@ body {
     border-right: 1px solid #ddd;
     .cm-wrap {
         flex:1;
-        min-height: 300px;
         width: 100%;
         border: 0;
         outline: none;
@@ -22,7 +47,6 @@ body {
         display: flex;
         // padding: 20px;
         font-size: 15px;
-        resize: none;
         flex-direction: column;
         .CodeMirror {
             height: 100%;
@@ -56,7 +80,7 @@ body {
     &.match {
         border-left-color: #61e885;
     }
-    input {
+    textarea {
         border: 0;
         outline: none;
         font-size: 15px;
@@ -65,12 +89,14 @@ body {
         width: 100%;
         padding-right: 50px;
         box-sizing: border-box;
+        resize: none;
     }
     .output {
         // display: none;
         color: #777;
-        padding: 5px 20px;
-        padding-bottom: 20px
+        padding: 20px;
+        padding-top: 5px;
+        padding-right: 50px;
     }
     // input:focus + .output {
     //     display: block;
@@ -91,4 +117,14 @@ body {
     right: 0;
     padding: 0 20px;
     cursor: pointer;
+}
+.title {
+    font-size: 30px;
+}
+.title-wrap {
+    margin-bottom: 20px;
+}
+.grey {
+    color: #aaa;
+    font-weight: normal;
 }

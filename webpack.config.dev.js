@@ -18,7 +18,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
-    noParse: /node_modules\/nearley\/lib\/nearley-language-bootstrapped.ne/,
+    noParse: /\.ne$/,
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
