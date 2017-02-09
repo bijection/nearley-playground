@@ -27,6 +27,7 @@ module.exports = {
     })
   ],
   module: {
+    // noParse: /\.ne$/,
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
@@ -34,6 +35,9 @@ module.exports = {
     }, {
       test: /\.css$/,
       loaders: ["style-loader", "css-loader", "sass-loader"]
+    }, {
+      test: /\.ne$/,
+      loaders: ["raw-loader"]
     }]
   },
   node: {

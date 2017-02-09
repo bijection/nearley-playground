@@ -60,7 +60,7 @@ export default class Editor extends Component {
         errors: ''
     };
     componentDidMount(){
-        let initial_val = localStorage.raw_grammar || require('raw-loader!./arithmetic.ne')
+        let initial_val = localStorage.raw_grammar || require('./arithmetic.ne')
         this.compile(initial_val);
         var cm = CodeMirror(this.refs.wrap, {
             mode: 'nearley',

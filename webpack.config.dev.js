@@ -26,6 +26,9 @@ module.exports = {
     }, {
       test: /\.css$/,
       loaders: ["style-loader", "css-loader", "sass-loader"]
+    }, {
+      test: /\.ne$/,
+      loaders: ["raw-loader"]
     }]
   },
   node: {
