@@ -22,14 +22,14 @@ Otherwise, here's how to build this project:
     yarn install
     ```
 
-(you can also run `npm install`)
+    (you can also run `npm install`)
 
 4. start the dev server 
     ```bash
     yarn start
     ```
 
-(you can also run `npm start`)
+    (you can also run `npm start`)
 
 5. open up a browser and go to `localhost:4321`
 
