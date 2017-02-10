@@ -25,6 +25,7 @@
     "lodash": "^4.17.4",
     "nearley": "^2.7.11",
     "node-sass": "^4.5.0",
+    "randexp": "^0.4.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-inspector": "^1.1.2"

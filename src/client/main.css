@@ -136,6 +136,18 @@ a {
     cursor: pointer;
     box-shadow: 0 -1px 0px #ddd;
     z-index: 1;
+    border-right: 1px solid #ddd;
+    flex-grow: 1;
+}
+.test-generate {
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 -1px 0px #ddd;
+    z-index: 1;
+}
+.test-create {
+    display: flex;
 }
 .test-x {
     height: 100%;

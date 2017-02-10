@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import nearley from 'nearley'
 import Inspector from 'react-inspector'
+import gen from './generate.js'
 
 export default class Tester extends Component {
     state = {
@@ -37,6 +38,12 @@ export default class Tester extends Component {
             this.refs['test'+tests.length].focus()
         })
     }
+    genTest(){
+        let grammar = this.props.grammar
+        let example = gen(grammar, grammar.ParserStart);
+        let {tests} = this.state
+        this.setState({tests: [...tests, example]})
+    }
     render(){
         return <div className='tester' onKeyPress={e => {
             if(e.key === 'Enter' && e.shiftKey) {
@@ -54,8 +61,12 @@ export default class Tester extends Component {
                         test={t}/>
                 )}
             </div>
-            <div className='test-add'
-                onClick={this.addTest.bind(this)}>+ Add Test</div>
+            <div className='test-create'>
+                <div className='test-add'
+                    onClick={this.addTest.bind(this)}>+ Add Test</div>
+                <div className='test-generate'
+                    onClick={this.genTest.bind(this)}>Generate</div>
+            </div>
         </div>
     }
 }
