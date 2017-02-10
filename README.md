@@ -35,6 +35,6 @@ Otherwise, here's how to build this project:
 
 6. **Edit some files in `nearley-playground/src/client`.**
     
-    WHen you save your edits, and the browser will automatically reload.
+    When you save your edits, and the browser will automatically reload.
 
 7. (optional) **Add a bunch of great functionality and send a PR!**
