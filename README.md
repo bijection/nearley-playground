@@ -1,4 +1,4 @@
-# (Nearly Parser Playground)[]
+# (Nearly Parser Playground)[http://omrelli.ug/nearley-playground]
 
 If you're looking for the actual site, it's [right here](http://omrelli.ug/nearley-playground).
 
