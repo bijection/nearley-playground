@@ -63,10 +63,6 @@ export default class Editor extends Component {
         let initial_val = (location.search != "?reset" && localStorage.raw_grammar) 
             || require('./arithmetic.ne')
 
-        console.log(location.search != "?reset", initial_val)
-
-        initial_val = require('./arithmetic.ne')
-
         this.compile(initial_val);
         var cm = CodeMirror(this.refs.wrap, {
             mode: 'nearley',
