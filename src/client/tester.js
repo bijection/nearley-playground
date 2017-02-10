@@ -20,24 +20,35 @@ export default class Tester extends Component {
         changed[i] = test
         this.setState({tests: changed})
     }
-    deleteTest(i){
+    deleteTest(i, shouldFocus=false){
         let {tests} = this.state
         let changed = tests.slice(0)
         changed.splice(i, 1)
         this.setState({tests: changed})
+        console.log(shouldFocus)
+        if(shouldFocus === true) setImmediate(e => {
+            this.refs['test'+Math.min(i,changed.length - 1)].focus()
+        })
     }
     addTest(){
         let {tests} = this.state
         this.setState({tests: [...tests, '']})
+        setImmediate(e => {
+            this.refs['test'+tests.length].focus()
+        })
     }
     render(){
         return <div className='tester' onKeyPress={e => {
-            if(e.key === 'Enter' && e.shiftKey) this.addTest()
+            if(e.key === 'Enter' && e.shiftKey) {
+                e.preventDefault()
+                this.addTest()
+            }
         }}>
             <div className='tests'>
                 {this.state.tests.map((t, i) => 
                     <Test grammar={this.props.grammar} 
                         key={i}
+                        ref={'test'+i}
                         setTest={this.setTest.bind(this,i)}
                         deleteTest={this.deleteTest.bind(this,i)}
                         test={t}/>
@@ -50,12 +61,12 @@ export default class Tester extends Component {
 }
 
 class Test extends Component {
-    componentDidMount(){
+    focus(){
         this.refs.input.focus()
     }
     keyDown(e){
         if(e.key === "Backspace" && e.target.value === '')
-            this.props.deleteTest()
+            this.props.deleteTest(true)
     }
     render(){
         let output;

@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: Menlo;
+    font-family: Menlo, Monaco, monospace;
 }
 a {
     text-decoration: none;
@@ -69,7 +69,7 @@ a {
             height: 100%;
             box-sizing: border-box;
             flex: 1;
-            font-family: Menlo;
+            font-family: Menlo, Monaco, monospace;
             .CodeMirror-lines {
                 padding: 20px;
             }
@@ -111,12 +111,13 @@ a {
         border: 0;
         outline: none;
         font-size: 15px;
-        font-family: Menlo;
+        font-family: Menlo, Monaco, monospace;
         padding: 20px;
         width: 100%;
         padding-right: 50px;
         box-sizing: border-box;
         resize: none;
+        height: 58px;
     }
     .output {
         // display: none;
@@ -157,4 +158,47 @@ a {
                 padding: 20px;
     }
     font-weight: normal;
+}
+.mobile-info {
+    padding: 10px;
+    margin-top: 15px;
+    border: 1px solid #ffc904;
+    display: none;
+}
+
+@media (max-width: 850px) {
+    .cm-wrap {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 700px) {
+    .mobile-info {
+        display: block;
+    }
+    .playground-body {
+        display: block
+    }
+    .editor {
+        border-right: 0px;
+        border-bottom: 1px solid #ddd;
+    }
+    .cm-wrap {
+        font-size: 10px !important;
+        display: block !important;
+        .CodeMirror {
+            height: auto !important;
+            .CodeMirror-scroll {
+                height: auto;
+            }
+        }
+    }
+    .hide {
+        display: none !important;
+    }
+    .titles {
+        display: none !important;
+    }
+    .tester {
+        display: block;
+    }
 }

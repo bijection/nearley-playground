@@ -73,7 +73,7 @@ export default class Editor extends Component {
             indentWithTabs: true,
             lineWrapping: true,
             theme: 'elegant',
-            viewportMargin: 2,
+            viewportMargin: Infinity,
             // lineNumbers: true,
             // extraKeys: 
         })
