@@ -1,6 +1,6 @@
-# [Nearly Parser Playground](http://omrelli.ug/nearley-playground)
+# [Nearly Parser Playground](https://omrelli.ug/nearley-playground)
 
-If you're looking for the actual site, it's [right here](http://omrelli.ug/nearley-playground).
+If you're looking for the actual site, it's [right here](https://omrelli.ug/nearley-playground).
 
 Otherwise, here's how to build this project:
 
