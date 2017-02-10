@@ -9,24 +9,24 @@ Otherwise, here's how to build this project:
 1. Open up a terminal and run 
 
     ```bash
-    git clone https://github.com/bijection/nearley-playground.git
+    > git clone https://github.com/bijection/nearley-playground.git
     ```
 
 2. cd into the project directory
     ```bash
-    cd nearley-playground
+    > cd nearley-playground
     ```
 
 3. install the project dependencies
     ```bash
-    yarn install
+    > yarn install
     ```
 
     (you can also run `npm install`)
 
 4. start the dev server 
     ```bash
-    yarn start
+    > yarn start
     ```
 
     (you can also run `npm start`)
