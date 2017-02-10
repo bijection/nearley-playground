@@ -7,15 +7,16 @@ import Tester from './tester'
 import "./main.css"
 
 class Playground extends Component {
-    state={
-        grammar: undefined
+    state = {
+        grammar: undefined,
+        highlight: []
     };
     render(){
         return <div className='playground'>
             <Header />
             <div className='playground-body'>
-                <Editor setGrammar={grammar=>this.setState({grammar})}/>
-                <Tester grammar={this.state.grammar}/>
+                <Editor setGrammar={grammar => this.setState({grammar})} highlight={this.state.highlight} grammar={this.state.grammar} />
+                <Tester grammar={this.state.grammar} setHighlight={highlight => this.setState({ highlight })} />
             </div>
         </div>
     }
