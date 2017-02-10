@@ -60,7 +60,7 @@ export default class Editor extends Component {
         errors: ''
     };
     componentDidMount(){
-        let initial_val = (location.query != "?reset" && localStorage.raw_grammar) 
+        let initial_val = (location.search != "?reset" && localStorage.raw_grammar) 
             || require('./arithmetic.ne')
 
         this.compile(initial_val);
