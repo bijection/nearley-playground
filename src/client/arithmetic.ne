@@ -1,16 +1,19 @@
+# From https://github.com/Hardmath123/nearley/blob/master/examples/calculator/arithmetic.ne
+
 # This is a nice little grammar to familiarize yourself
 # with the nearley syntax.
 
 # It parses valid calculator input, obeying OOO and stuff.
+# Try clicking "Add Test" and pasting in
 #   ln (3 + 2*(8/e - sin(pi/5)))
-# is valid input.
-
-# This is (hopefully) pretty self-evident.
 
 # `main` is the nonterminal that nearley tries to parse, so
 # we define it first.
 # The _'s are defined as whitespace below. This is a mini-
 # -idiom.
+# The stuff inside {% %} is an optional postprocessing
+# function which can return anything you like.
+
 
 main -> _ AS _ {% function(d) {return {type:'main', d:d, v:d[1].v}} %}
 
