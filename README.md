@@ -4,7 +4,7 @@ If you're looking for the actual site, it's [right here](http://omrelli.ug/nearl
 
 Otherwise, here's how to build this project:
 
-0. If you don't have `npm` or `yarn`, install [yarn](https://yarnpkg.com/en/docs/install).
+0. **If you don't have `npm` or `yarn`, install** [yarn](https://yarnpkg.com/en/docs/install).
 
 1. **Open up a terminal and run**
 
@@ -24,7 +24,7 @@ Otherwise, here's how to build this project:
 
     (you can also run `npm install`)
 
-4. **Start the dev server **
+4. **Start the dev server**
     ```bash
     yarn start
     ```
