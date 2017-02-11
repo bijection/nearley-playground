@@ -15,6 +15,8 @@ export default function Compile(structure, opts) {
 
     for (var i = 0; i < structure.length; i++) {
         var productionRule = structure[i];
+        markRange(productionRule.name, productionRule.pos, productionRule.name.length)
+
         if (productionRule.body) {
             // This isn't a rule, it's an @directive.
             if (!opts.nojs) {
@@ -69,6 +71,13 @@ export default function Compile(structure, opts) {
     }
 
     return result;
+
+    function markRange(name, start, length){
+        // console.log(name, [start, start + length])
+        if(opts.rangeCallback){
+            opts.rangeCallback(name, start, start + length)
+        }
+    }
 
     function produceRules(name, rules, env) {
         for (var i = 0; i < rules.length; i++) {
@@ -144,7 +153,10 @@ export default function Compile(structure, opts) {
     }
 
     function buildStringToken(ruleName, token, env) {
+
         var newname = unique(ruleName + "$string");
+        markRange(newname, token.pos, JSON.stringify(token.literal).length)
+
         produceRules(newname, [
             {
                 tokens: token.literal.split("").map(function charLiteral(d) {

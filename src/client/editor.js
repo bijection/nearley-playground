@@ -53,11 +53,25 @@ CodeMirror.defineMode("nearley", config =>
     )
 )
 
+
+function AnnotatePositions(rules){
+    return rules.map(rule => 
+        new nearley.Rule(rule.name, rule.symbols, rule.postprocess && ((data, ref, reject) => {
+            var orig = rule.postprocess(data, ref, reject);
+            if(typeof orig == 'object' && !orig.slice){
+                orig.pos = ref;
+            }
+            return orig
+        }))
+    )
+}
+
 export default class Editor extends Component {
     state = {
         raw: '',
         output: '',
-        errors: ''
+        errors: '',
+        positions: {}
     };
     componentDidMount(){
         let initial_val = (location.search != "?reset" && localStorage.raw_grammar) 
@@ -92,16 +106,21 @@ export default class Editor extends Component {
 
         localStorage.raw_grammar = grammar
 
-        let parser = new nearley.Parser( ParserRules, ParserStart )
+        let parser = new nearley.Parser( AnnotatePositions(ParserRules), ParserStart )
 
         let errors = stream()
         let output = ''
+        let positions = {}
 
         try {
             parser.feed(grammar)            
             if(parser.results[0]){
-                var c = compile(parser.results[0], {});
+                function rangeCallback(name, start, end){
+                    positions[name] = [start, end]
+                }
+                var c = compile(parser.results[0], { rangeCallback: rangeCallback });
                 lint(c, {out: errors});
+
                 output = generate(c, 'grammar')
                 this.props.setGrammar(get_exports(output))
             }
@@ -111,8 +130,29 @@ export default class Editor extends Component {
         }
 
         this.setState({
-            errors: errors.dump()
+            errors: errors.dump(),
+            positions: positions
         })
+    }
+    componentDidUpdate(){
+        // console.log(ParserRules)
+        this.cm.getAllMarks()
+            .filter(k => k.nearley)
+            .forEach(k => k.clear())
+
+        for(let key of this.props.highlight){
+            if(key in this.state.positions){
+                var [start, end] = this.state.positions[key];
+
+                var mark = this.cm.markText(
+                    this.cm.posFromIndex(start),
+                    this.cm.posFromIndex(end), {
+                    className: 'active'
+                })
+                mark.nearley = true;
+            }
+        }
+
     }
     render(){
         return <div className='editor'>
