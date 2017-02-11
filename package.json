@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "node devServer.js",
-    "build": "webpack --config webpack.config.prod.js"
+    "start": "node server.js",
+    "build": "webpack --config webpack.config.prod.js "
   },
   "author": "bijection",
   "license": "ISC",
