@@ -1,4 +1,5 @@
-# From https://github.com/Hardmath123/nearley/blob/master/examples/calculator/arithmetic.ne
+# From https://github.com/Hardmath123/nearley/
+# blob/master/examples/calculator/arithmetic.ne
 
 # This is a nice little grammar to familiarize yourself
 # with the nearley syntax.
