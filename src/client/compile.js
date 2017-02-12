@@ -15,7 +15,7 @@ export default function Compile(structure, opts) {
 
     for (var i = 0; i < structure.length; i++) {
         var productionRule = structure[i];
-        markRange(productionRule.name, productionRule.pos, productionRule.name.length)
+        markRange(productionRule.name, productionRule.pos, productionRule.name && productionRule.name.length)
 
         if (productionRule.body) {
             // This isn't a rule, it's an @directive.
