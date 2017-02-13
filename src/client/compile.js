@@ -1,4 +1,5 @@
 import nearley from 'nearley'
+import {ParserRules, ParserStart} from 'nearley/lib/nearley-language-bootstrapped'
 export default function Compile(structure, opts) {
     var unique = uniquer();
     if (!opts.alreadycompiled) {
@@ -38,13 +39,28 @@ export default function Compile(structure, opts) {
                 );
             }
             if (opts.alreadycompiled.indexOf(path) === -1) {
+                // console.log('alreadycompiled', path)
                 opts.alreadycompiled.push(path);
-                f = require('fs').readFileSync(path).toString();
-                var parserGrammar = new require('nearley/lib/nearley-language-bootstrapped.js');
-                var parser = new nearley.Parser(parserGrammar.ParserRules, parserGrammar.ParserStart);
+                if(path === "/builtin/postprocessors.ne"){
+                    var f = require('nearley/builtin/postprocessors.ne')
+                }else if(path === "/builtin/whitespace.ne"){
+                    var f = require('nearley/builtin/whitespace.ne')
+                }else if(path === "/builtin/string.ne"){
+                    var f = require('nearley/builtin/string.ne')
+                }else if(path === "/builtin/number.ne"){
+                    var f = require('nearley/builtin/number.ne')
+                }else if(path === "/builtin/cow.ne"){
+                    var f = require('nearley/builtin/cow.ne')
+                }
+
+                // console.log(f)
+                // f = require('fs').readFileSync(path).toString();
+                // var parserGrammar = new require('nearley/lib/nearley-language-bootstrapped');
+                var parser = new nearley.Parser(ParserRules, ParserStart);
                 parser.feed(f);
                 var c = Compile(parser.results[0], {path: path, __proto__:opts});
-                require('nearley/lib/lint.js')(c, {out: process.stderr});
+                // require('nearley/lib/lint.js')(c, {out: process.stderr});
+
                 result.rules = result.rules.concat(c.rules);
                 result.body  = result.body.concat(c.body);
                 Object.keys(c.config).forEach(function(k) {
