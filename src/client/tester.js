@@ -80,13 +80,14 @@ class Test extends Component {
             this.props.deleteTest(true)
     }
     render(){
-        let output;
+        let outputs = [];
 
         try {
             let {ParserRules, ParserStart} = this.props.grammar        
             let parser = new nearley.Parser( ParserRules, ParserStart )
             parser.feed(this.props.test)
-            output = parser.results[0]
+            outputs = parser.results
+            
         } catch(e) {
             // console.log(e, this.props)
         }
@@ -97,7 +98,7 @@ class Test extends Component {
             this.refs.input.style.height = this.refs.input.scrollHeight
         })
 
-        return <div className={'test ' + (output ? 'match' : '')}>
+        return <div className={'test ' + (outputs.length > 0 ? 'match' : '')}>
             <div className='test-x' onClick={this.props.deleteTest}>
                 <div>{'\u00d7'}</div>
             </div>
@@ -109,7 +110,10 @@ class Test extends Component {
                 value={this.props.test}
                 onKeyDown={this.keyDown.bind(this)}
                 />
-            <div className='output'><Inspector data={output}/></div>
+            {outputs.map((output, i) => 
+                <div className='output' key={i}>
+                    <Inspector data={output}/>
+                </div>)}
         </div>
     }
 }
