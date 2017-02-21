@@ -38,7 +38,7 @@ let default_playground_state = {
 
 if(localStorage.raw_grammar) {
 
-    let {errors, output} = localStorage.raw_grammar
+    let {errors, output} = compile(localStorage.raw_grammar)
 
     default_playground_state = {
         active: 0,
