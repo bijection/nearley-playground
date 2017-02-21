@@ -38,7 +38,9 @@ let default_playground_state = {
 
 if(localStorage.raw_grammar) {
 
-    let {errors, output} = compile(localStorage.raw_grammar)
+    let c = compile(localStorage.raw_grammar)
+
+    let {errors, output} = c
 
     default_playground_state = {
         active: 0,
@@ -56,6 +58,7 @@ if(localStorage.raw_grammar) {
     localStorage._backup_grammar = localStorage.raw_grammar
     delete localStorage.raw_grammar
 
+    console.log(c, default_playground_state)
 }
 
 class Playground extends Component {
