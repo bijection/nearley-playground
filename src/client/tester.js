@@ -4,47 +4,42 @@ import Inspector from 'react-inspector'
 import gen from './generate.js'
 
 export default class Tester extends Component {
-    state = {
-        tests: ['1 + 1', 'ln(5 + sin(3 + 4*e))'],
-    };
-    componentDidMount(){
-        if(localStorage.tests && JSON.parse(localStorage.tests).length) this.setState({
-            tests: JSON.parse(localStorage.tests)
-        })
-    }
-    componentWillUpdate(_ ,nextState){
-        localStorage.tests = JSON.stringify(nextState.tests)
-    }
+    // state = {
+    //     tests: ['1 + 1', 'ln(5 + sin(3 + 4*e))'],
+    // };
     setTest(i, test){
-        let {tests} = this.state
+        let {tests} = this.props
         let changed = tests.slice(0)
         changed[i] = test
-        this.setState({tests: changed})
+        this.props.setTests(changed)
     }
     deleteTest(i, shouldFocus=false){
-        let {tests} = this.state
+        let {tests} = this.props
         let changed = tests.slice(0)
         changed.splice(i, 1)
-        this.setState({tests: changed})
+        this.props.setTests(changed)
         console.log(shouldFocus)
         if(shouldFocus === true) setImmediate(e => {
             this.refs['test'+Math.min(i,changed.length - 1)].focus()
         })
     }
     addTest(){
-        let {tests} = this.state
-        this.setState({tests: [...tests, '']})
+        let {tests} = this.props
+        this.props.setTests([...tests, ''])
         setImmediate(e => {
             this.refs['test'+tests.length].focus()
         })
     }
     genTest(){
-        let grammar = this.props.grammar
+        let grammar = get_exports(this.props.grammar)
         let example = gen(grammar, grammar.ParserStart);
-        let {tests} = this.state
-        this.setState({tests: [...tests, example]})
+        let {tests} = this.props
+        this.props.setTests([...tests, example])
     }
     render(){
+
+        let grammar = get_exports(this.props.grammar)
+
         return <div className='tester' onKeyPress={e => {
             if(e.key === 'Enter' && e.shiftKey) {
                 e.preventDefault()
@@ -52,8 +47,8 @@ export default class Tester extends Component {
             }
         }}>
             <div className='tests'>
-                {this.state.tests.map((t, i) => 
-                    <Test grammar={this.props.grammar} 
+                {this.props.tests.map((t, i) => 
+                    <Test grammar={grammar} 
                         key={i}
                         ref={'test'+i}
                         setTest={this.setTest.bind(this,i)}
@@ -71,6 +66,13 @@ export default class Tester extends Component {
     }
 }
 
+function get_exports(source){
+    let module = {exports:''}
+    eval(source)
+    return module.exports
+}
+
+
 class Test extends Component {
     focus(){
         this.refs.input.focus()
@@ -83,7 +85,8 @@ class Test extends Component {
         let outputs = [];
 
         try {
-            let {ParserRules, ParserStart} = this.props.grammar        
+
+            let {ParserRules, ParserStart} = this.props.grammar
             let parser = new nearley.Parser( ParserRules, ParserStart )
             parser.feed(this.props.test)
             outputs = parser.results

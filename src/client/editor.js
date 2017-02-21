@@ -29,11 +29,6 @@ function stream() {
     }
 }
 
-function get_exports(source){
-    let module = {exports:''}
-    eval(source)
-    return module.exports
-}
 
 CodeMirror.defineMode("nearley", config => 
     CodeMirror.multiplexingMode(
@@ -68,19 +63,19 @@ function AnnotatePositions(rules){
 
 export default class Editor extends Component {
     state = {
-        raw: '',
-        output: '',
-        errors: '',
         positions: {}
     };
     componentDidMount(){
-        let initial_val = (location.search != "?reset" && localStorage.raw_grammar) 
-            || require('./arithmetic.ne')
+        // let initial_val = location.search == "?reset"
+        //     ? require('./arithmetic.ne')
+        //     : this.state.raw
+
+        let initial_val = this.props.value
 
         this.compile(initial_val);
         var cm = CodeMirror(this.refs.wrap, {
             mode: 'nearley',
-            value: initial_val,
+            value: this.props.value,
             tabSize: 4,
             matchBrackets: true,
             autoCloseBrackets: true,
@@ -98,68 +93,74 @@ export default class Editor extends Component {
         // global.cm = cm; // DEBUGGING
 
         cm.on('change', (cm, change) => {
-            this.compile(cm.getValue())
+            if(change.origin != 'setValue') this.props.onChange(cm.getValue())
         })
 
+    }
+    componentWillReceiveProps(nextprops){
+        // console.log(nextprops)
+        if(nextprops.value != this.cm.getValue()) 
+            this.cm.setValue(nextprops.value)
     }
     compile(grammar) {
 
-        localStorage.raw_grammar = grammar
+        // localStorage.raw_grammar = grammar
 
-        let parser = new nearley.Parser( AnnotatePositions(ParserRules), ParserStart )
+        // let parser = new nearley.Parser( AnnotatePositions(ParserRules), ParserStart )
 
-        let errors = stream()
-        let output = ''
-        let positions = {}
+        // let errors = stream()
+        // let output = ''
+        // let positions = {}
 
-        try {
-            parser.feed(grammar)            
-            if(parser.results[0]){
-                function rangeCallback(name, start, end){
-                    positions[name] = [start, end]
-                }
-                var c = compile(parser.results[0], { rangeCallback: rangeCallback });
-                lint(c, {out: errors});
+        // try {
+        //     parser.feed(grammar)            
+        //     if(parser.results[0]){
+        //         function rangeCallback(name, start, end){
+        //             positions[name] = [start, end]
+        //         }
+        //         var c = compile(parser.results[0], { rangeCallback: rangeCallback });
+        //         lint(c, {out: errors});
 
-                output = generate(c, 'grammar')
-                this.props.setGrammar(get_exports(output))
-            }
-        } catch(e) {
-            console.error(e)
-            errors.write(e)
-        }
+        //         output = generate(c, 'grammar')
+        //         this.props.setGrammar(get_exports(output))
+        //     }
+        // } catch(e) {
+        //     console.error(e)
+        //     errors.write(e)
+        // }
 
-        this.setState({
-            errors: errors.dump(),
-            positions: positions
-        })
+        // this.setState({
+        //     errors: errors.dump(),
+        //     positions: positions
+        // })
     }
     componentDidUpdate(){
         // console.log(ParserRules)
-        this.cm.getAllMarks()
-            .filter(k => k.nearley)
-            .forEach(k => k.clear())
 
-        for(let key of this.props.highlight){
-            if(key in this.state.positions){
-                var [start, end] = this.state.positions[key];
+        // this.cm.getAllMarks()
+        //     .filter(k => k.nearley)
+        //     .forEach(k => k.clear())
 
-                var mark = this.cm.markText(
-                    this.cm.posFromIndex(start),
-                    this.cm.posFromIndex(end), {
-                    className: 'active'
-                })
-                mark.nearley = true;
-            }
-        }
+        // for(let key of this.props.highlight){
+        //     if(key in this.state.positions){
+        //         var [start, end] = this.state.positions[key];
+
+        //         var mark = this.cm.markText(
+        //             this.cm.posFromIndex(start),
+        //             this.cm.posFromIndex(end), {
+        //             className: 'active'
+        //         })
+        //         mark.nearley = true;
+        //     }
+        // }
 
     }
     render(){
         return <div className='editor'>
             <div className='shadow'/>
             <div className='cm-wrap' ref='wrap'></div>
-            {this.state.errors.length 
-                ? <div className='errors'>{this.state.errors}</div>
+            {this.props.errors.length 
+                ? <div className='errors'>{this.props.errors}</div>
                 : ''}
         </div>
     }

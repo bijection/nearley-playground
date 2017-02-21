@@ -17,7 +17,6 @@ a {
 }
 .header {
     padding: 20px;
-    border-bottom: 1px solid #ddd;
     .hide {
         position: absolute;
         right: 20px;
@@ -29,25 +28,80 @@ a {
     .show {
         cursor: pointer;
     }
-    .titles {
-        margin: 0 -20px;
-        margin-top: 20px;
-        display: flex;
-        font-weight: bold;
-        // text-align: center;
-        .lp {
-            padding-left: 20px;
+}
+
+.tabs {
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+    overflow: scroll;
+    flex-shrink: 0;
+    .tab {
+        display: inline-block;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        padding-right: 10px;
+        margin: 0 5px;
+        &.active {
+            border-bottom-color: #fff;
+            input {
+                color: #000;
+            }
+            .x {
+                color: #000
+            }
         }
-        .grammar-title {
-            flex: 2
+        input {
+            color: #888;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+            outline: none;
+            border: 0;
+            width: 50px;
         }
-        .examples-title {
-            flex:1;
-            box-sizing: border-box;
+        .x {
+            color: #ccc;
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+            &:hover {
+                color: red;
+            }
         }
     }
-
+    .add {
+        display: inline-block;
+        padding: 10px;
+        cursor: pointer;
+        &.grey {
+            color: #48f;
+        }
+    }
 }
+
+.titles {
+    margin: 0;
+    // margin-top: 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+    display: flex;
+    font-weight: bold;
+    // text-align: center;
+    .lp {
+        padding-left: 20px;
+    }
+    .grammar-title {
+        flex: 2
+    }
+    .examples-title {
+        flex:1;
+        box-sizing: border-box;
+    }
+}
+
 
 .editor {
     flex: 2;
@@ -193,6 +247,7 @@ a {
     .editor {
         border-right: 0px;
         border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ccc;
     }
     .cm-wrap {
         font-size: 10px !important;
