@@ -13,26 +13,7 @@ import "./main.css"
 console.log(compile(sentence))
 
 
-let default_playground_state = localStorage.raw_grammar
-
-? {
-    active: 0,
-    compiled_grammar: localStorage.raw_grammar,
-    tabs: [
-        {
-            name: 'Imported from Previous Version',
-            editor_value: compile(localStorage.raw_grammar).output,
-            errors: compile(localStorage.raw_grammar),
-            tests: JSON.parse(localStorage.tests)
-        },
-        {
-            name: 'Fancier Example',
-            editor_value: arithmetic,
-            errors: '',
-            tests: ['1 + 1', 'ln(5 + sin(3 + 4*e))']
-        }
-    ]
-} : {
+let default_playground_state = {
     active: 0,
     compiled_grammar: compile(sentence).output,
     tabs: [
@@ -56,8 +37,25 @@ let default_playground_state = localStorage.raw_grammar
 }
 
 if(localStorage.raw_grammar) {
+
+    let {errors, output} = localStorage.raw_grammar
+
+    default_playground_state = {
+        active: 0,
+        compiled_grammar: output,
+        tabs: [
+            {
+                name: 'Imported from Previous Version',
+                editor_value: localStorage.raw_grammar,
+                errors,
+                tests: JSON.parse(localStorage.tests)
+            }
+        ]
+    }
+
     localStorage._backup_grammar = localStorage.raw_grammar
     delete localStorage.raw_grammar
+
 }
 
 class Playground extends Component {
