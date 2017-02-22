@@ -18,7 +18,7 @@ let default_playground_state = {
     compiled_grammar: compile(sentence).output,
     tabs: [
         {
-            name: 'Basic Example',
+            name: 'Basic Grammar',
             editor_value: sentence,
             errors: '',
             tests: [
@@ -28,7 +28,7 @@ let default_playground_state = {
             ]
         },
         {
-            name: 'Fancier Example',
+            name: 'Fancier Grammar',
             editor_value: arithmetic,
             errors: '',
             tests: ['1 + 1', 'ln(5 + sin(3 + 4*e))']
@@ -182,15 +182,6 @@ class Playground extends Component {
                     }}>Reset Examples?</div>
                     : null }
             </div>
-            <div className='titles'>
-                <div className='grammar-title'>
-                    <div className='lp'>Grammar <span className='grey'>(autosaved to localStorage)</span></div>
-                </div>
-                <div className='examples-title'>
-                    <div className='subtitle'>Tests <span className='grey'>(autosaved to localStorage)</span></div>
-                </div>
-            </div>
-
             <div className='playground-body'>
 
                 <Editor 
