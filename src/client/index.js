@@ -63,8 +63,9 @@ if(localStorage.raw_grammar) {
 }
 
 
-
-const new_tab_grammar = 'Main -> "I\'m sure glad I follow " Handle " on twitter!"\nHandle -> "@biject" | "@antimatter15"'
+const new_tab_grammar = `Main -> "What's up, " Person "?"
+Person -> "@biject" | "@antimatter15" | "HardMath123"
+`
 const new_tab_grammar_compiled = compile(new_tab_grammar).output
 
 class Playground extends Component {
@@ -149,7 +150,7 @@ class Playground extends Component {
             name: 'Tab '+(state.tabs.length+1),
             editor_value: new_tab_grammar,
             errors: '',
-            tests: ['I\'m sure glad I follow @biject on twitter!']
+            tests: ['What\'s up, @biject?']
         })
         state.active = state.tabs.length - 1
         this.setState(state)
