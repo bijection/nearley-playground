@@ -64,7 +64,7 @@ if(localStorage.raw_grammar) {
 
 
 const new_tab_grammar = `Main -> "What's up, " Person "?"
-Person -> "@biject" | "@antimatter15" | "HardMath123"
+Person -> "@biject" | "@antimatter15" | "Hardmath123"
 `
 const new_tab_grammar_compiled = compile(new_tab_grammar).output
 
@@ -136,8 +136,10 @@ class Playground extends Component {
             state.active = state.active <= i
                 ? Math.min(state.active, state.tabs.length - 1)
                 : state.active - 1
+            state.compiled_grammar = compile(state.tabs[state.active].editor_value).output
 
             this.setState(state)            
+
         }
 
         setImmediate(e => this.setTabSizes())
