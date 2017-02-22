@@ -27,6 +27,11 @@ a {
     }
     .show {
         cursor: pointer;
+        padding: 10px;
+        font-size: 12px;
+    }
+    &.small {
+        padding: 0;
     }
 }
 

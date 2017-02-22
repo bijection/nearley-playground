@@ -6,7 +6,7 @@ import Inspector from 'react-inspector'
 export default class Header extends Component{
     state={hidden: false};
     render(){
-        return <div className='header'>
+        return <div className={'header' + (this.state.hidden ? ' small' : '')}>
             <div 
                 onClick={e => this.setState({hidden: !this.state.hidden})}
                 className={this.state.hidden ? 'show' : 'hide'}
