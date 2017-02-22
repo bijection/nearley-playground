@@ -241,6 +241,12 @@ a {
     .cm-wrap {
         font-size: 12px !important;
     }
+    .titles {
+        padding: 10px 0;
+        .grey {
+            display: none;
+        }
+    }
 }
 @media (max-width: 700px) {
     .mobile-info {
@@ -273,4 +279,5 @@ a {
     .tester {
         display: block;
     }
+
 }
