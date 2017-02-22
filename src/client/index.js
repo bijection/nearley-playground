@@ -36,6 +36,7 @@ let default_playground_state = {
     ]
 }
 
+
 if(localStorage.raw_grammar) {
 
     let c = compile(localStorage.raw_grammar)
@@ -60,6 +61,11 @@ if(localStorage.raw_grammar) {
 
     console.log(c, default_playground_state)
 }
+
+
+
+const new_tab_grammar = 'Main -> "I\'m sure glad I follow " Handle " on twitter!"\nHandle -> "@biject" | "@antimatter15"'
+const new_tab_grammar_compiled = compile(new_tab_grammar).output
 
 class Playground extends Component {
     state = default_playground_state;
@@ -138,11 +144,12 @@ class Playground extends Component {
     }
     addTab() {
         let state = _.cloneDeep(this.state)
+        state.compiled_grammar = new_tab_grammar_compiled
         state.tabs.push({
             name: 'Tab '+(state.tabs.length+1),
-            editor_value: '',
+            editor_value: new_tab_grammar,
             errors: '',
-            tests: []
+            tests: ['I\'m sure glad I follow @biject on twitter!']
         })
         state.active = state.tabs.length - 1
         this.setState(state)
