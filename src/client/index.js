@@ -62,7 +62,6 @@ if(localStorage.raw_grammar) {
     console.log(c, default_playground_state)
 }
 
-console.log('is gh-pages down?')
 
 const new_tab_grammar = `Main -> "What's up, " Person "?"
 Person -> "@biject" | "@antimatter15" | "HardMath123"
