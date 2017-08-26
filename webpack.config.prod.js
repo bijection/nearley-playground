@@ -13,8 +13,6 @@ module.exports = {
     filename: '[name].bundle.js',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -28,16 +26,16 @@ module.exports = {
   ],
   module: {
     // noParse: /\.ne$/,
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      use: ['babel-loader'],
       include: [path.join(__dirname, 'src')]
     }, {
       test: /\.css$/,
-      loaders: ["style-loader", "css-loader", "sass-loader"]
+      use: ["style-loader", "css-loader", "sass-loader"]
     }, {
       test: /\.ne$/,
-      loaders: ["raw-loader"]
+      use: ["raw-loader"]
     }]
   },
   node: {

@@ -15,20 +15,20 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     noParse: /\.ne$/,
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      use: ['babel-loader'],
       include: [path.join(__dirname, 'src')]
     }, {
       test: /\.css$/,
-      loaders: ["style-loader", "css-loader", "sass-loader"]
+      use: ["style-loader", "css-loader", "sass-loader"]
     }, {
       test: /\.ne$/,
-      loaders: ["raw-loader"]
+      use: ["raw-loader"]
     }]
   },
   node: {
