@@ -56,7 +56,7 @@ N -> float          {% id %}
 
 # I use `float` to basically mean a number with a decimal point in it
 float ->
-      int "." int   {% function(d) {return {v:parseFloat(d[0].v + d[1].v + d[2].v)}} %}
+      int "." int   {% function(d) {return {v:parseFloat(d[0].v + d[1] + d[2].v)}} %}
     | int           {% function(d) {return {v:parseInt(d[0].v)}} %}
 
 int -> [0-9]:+        {% function(d) {return {v:d[0].join("")}} %}
