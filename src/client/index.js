@@ -86,7 +86,7 @@ class Playground extends Component {
     componentDidMount(){
         this.setTabSizes()
     }
-    componentWillUpdate(nextProps, nextState){
+    componentDidUpdate(nextProps, nextState){
         localStorage.playgroundState = JSON.stringify(nextState)
     }
     compiled_state(v, i=this.state.active){
