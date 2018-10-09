@@ -86,8 +86,11 @@ class Test extends Component {
     runTest(t){
         new Promise((res, rej) => {
             this.worker.postMessage({test: t, source: this.props.grammar})
-            this.worker.onmessage = e => res(e.data)
-            setTimeout(() => {
+            this.worker.onmessage = e => {
+                res(e.data)
+                clearTimeout(this.timeout)
+            }
+            this.timeout = setTimeout(() => {
                 this.worker.terminate()
                 this.worker = new Worker('./dist/worker.bundle.js')
                 rej('Possible infinite loop detected! Check your grammar for infinite recursion.')
@@ -107,6 +110,10 @@ class Test extends Component {
     setTest(t){
         this.props.setTest(t)
         this.runTest(t)
+    }
+    componentWillUnmount(){
+        clearTimeout(this.timeout)
+        this.worker.terminate()
     }
     render(){
         let {outputs, testing} = this.state;

@@ -1,5 +1,5 @@
 import nearley from 'nearley'
-import {ParserRules, ParserStart} from 'nearley/lib/nearley-language-bootstrapped'
+import bootstraped from 'nearley/lib/nearley-language-bootstrapped'
 export default function Compile(structure, opts) {
     var unique = uniquer();
     if (!opts.alreadycompiled) {
@@ -32,37 +32,30 @@ export default function Compile(structure, opts) {
                     productionRule.include
                 );
             } else {
-                path = require('path').resolve(
-                    __dirname,
-                    '../builtin/',
-                    productionRule.include
-                );
+                path = productionRule.include
             }
             if (opts.alreadycompiled.indexOf(path) === -1) {
-                // console.log('alreadycompiled', path)
                 opts.alreadycompiled.push(path);
-                if(path === "/builtin/postprocessors.ne"){
+                if(path === "postprocessors.ne"){
                     var f = require('nearley/builtin/postprocessors.ne')
-                }else if(path === "/builtin/whitespace.ne"){
+                }else if(path === "whitespace.ne"){
                     var f = require('nearley/builtin/whitespace.ne')
-                }else if(path === "/builtin/string.ne"){
+                }else if(path === "string.ne"){
                     var f = require('nearley/builtin/string.ne')
-                }else if(path === "/builtin/number.ne"){
+                }else if(path === "number.ne"){
                     var f = require('nearley/builtin/number.ne')
-                }else if(path === "/builtin/cow.ne"){
+                }else if(path === "cow.ne"){
                     var f = require('nearley/builtin/cow.ne')
                 }
 
-                // console.log(f)
-                // f = require('fs').readFileSync(path).toString();
-                // var parserGrammar = new require('nearley/lib/nearley-language-bootstrapped');
-                var parser = new nearley.Parser(ParserRules, ParserStart);
+                var parserGrammar = nearley.Grammar.fromCompiled(bootstraped);
+                var parser = new nearley.Parser(parserGrammar);
                 parser.feed(f);
-                var c = Compile(parser.results[0], {path: path, __proto__:opts});
-                // require('nearley/lib/lint.js')(c, {out: process.stderr});
+                var c = Compile(parser.results[0], {file: path, __proto__:opts});
 
                 result.rules = result.rules.concat(c.rules);
                 result.body  = result.body.concat(c.body);
+                // result.customTokens = result.customTokens.concat(c.customTokens);
                 Object.keys(c.config).forEach(function(k) {
                     result.config[k] = c.config[k];
                 });
