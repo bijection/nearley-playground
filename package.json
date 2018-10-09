@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --config webpack.config.prod.js "
+    "build": "webpack-cli --config webpack.config.prod.js "
   },
   "author": "bijection",
   "license": "ISC",
@@ -18,10 +18,11 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^4.20.2",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "codemirror": "^5.29.0",
     "lodash": "^4.17.4",
     "nearley": "^2.15.1",

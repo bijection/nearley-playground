@@ -1,8 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  // devtool: 'source-map',
+  mode: 'production',
   entry: {
     client: [
       './src/client/index.js'
@@ -17,19 +18,9 @@ module.exports = {
     globalObject: `(typeof self !== 'undefined' ? self : this)`,
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    })
+    new BundleAnalyzerPlugin(),
   ],
   module: {
-    // noParse: /\.ne$/,
     rules: [{
       test: /\.js$/,
       use: ['babel-loader'],

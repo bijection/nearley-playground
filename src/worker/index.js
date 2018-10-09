@@ -9,10 +9,7 @@ function get_exports(source){
 onmessage = function({data}){
     let outputs = [];
 
-    console.log('hi', data)
-
     const {source, test} = data
-
 
     try {
         let parser = new nearley.Parser( get_exports(source) )
@@ -21,8 +18,6 @@ onmessage = function({data}){
     } catch(e) {
         console.log(e)
     }
-
-    console.log(outputs)
 
     postMessage(outputs)
 }

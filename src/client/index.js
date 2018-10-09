@@ -6,7 +6,7 @@ import Tester from './tester'
 import compile from './high_level_compile'
 import arithmetic from './arithmetic.ne'
 import sentence from './sentence.ne'
-import 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 import "./main.css"
 
@@ -90,7 +90,7 @@ class Playground extends Component {
         localStorage.playgroundState = JSON.stringify(nextState)
     }
     compiled_state(v, i=this.state.active){
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
     
         let {output, errors} = compile(v)
 
@@ -101,7 +101,7 @@ class Playground extends Component {
         return state
     }
     setErrors(errors, i=this.state.active){
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
     
         state.tabs[i].errors = errors || []
 
@@ -116,13 +116,13 @@ class Playground extends Component {
         // this.compile(this.state.tabs[i].editor_value)
     }
     setTests(tests){
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
     
         state.tabs[state.active].tests = tests
         this.setState(state)
     }
     setTabName(i, name){
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
         state.tabs[i].name = name
         this.setState(state)
     }
@@ -130,7 +130,7 @@ class Playground extends Component {
         e.stopPropagation()
 
 
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
         if(state.tabs.length < 2){
             this.setState({tabs: [{
                 name: "Tab 1",
@@ -153,7 +153,7 @@ class Playground extends Component {
      
     }
     addTab() {
-        let state = _.cloneDeep(this.state)
+        let state = cloneDeep(this.state)
         state.compiled_grammar = new_tab_grammar_compiled
         state.tabs.push({
             name: 'Tab '+(state.tabs.length+1),
