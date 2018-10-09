@@ -1,7 +1,7 @@
 import nearley from 'nearley'
 
 import compile from './compile'
-import {ParserRules, ParserStart} from 'nearley/lib/nearley-language-bootstrapped'
+import {ParserRules, ParserStart, Lexer} from 'nearley/lib/nearley-language-bootstrapped'
 import generate from 'nearley/lib/generate.js'
 import lint from 'nearley/lib/lint.js'
 
@@ -18,6 +18,8 @@ function AnnotatePositions(rules){
     return rules.map(rule => 
         new nearley.Rule(rule.name, rule.symbols, rule.postprocess && ((data, ref, reject) => {
             var orig = rule.postprocess(data, ref, reject);
+            if(orig === null) 
+                return null
             if(typeof orig == 'object' && !orig.slice){
                 orig.pos = ref;
             }
@@ -28,7 +30,7 @@ function AnnotatePositions(rules){
 
 export default function high_level_compile(grammar) {
 
-    let parser = new nearley.Parser( AnnotatePositions(ParserRules), ParserStart )
+    let parser = new nearley.Parser( AnnotatePositions(ParserRules), ParserStart, {lexer: Lexer} )
 
     let errors = stream()
     let output = ''
@@ -54,4 +56,10 @@ export default function high_level_compile(grammar) {
         positions,
         output
     }
+}
+
+export function get_exports(source){
+    let module = {exports:''}
+    eval(source)
+    return module.exports
 }

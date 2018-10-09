@@ -100,6 +100,13 @@ class Playground extends Component {
 
         return state
     }
+    setErrors(errors, i=this.state.active){
+        let state = _.cloneDeep(this.state)
+    
+        state.tabs[i].errors = errors || []
+
+        return this.setState(state)
+    }
     setActive(i){
 
         let state = this.compiled_state(this.state.tabs[i].editor_value, i)
@@ -161,6 +168,7 @@ class Playground extends Component {
     }
     render(){
         let {name, editor_value, errors, tests} = this.state.tabs[this.state.active]
+        const {active} = this.state
 
         return <div className='playground'>
             <Header />
@@ -168,7 +176,7 @@ class Playground extends Component {
                 {this.state.tabs.map( 
                     ({name}, i) => <div 
                         key={i}
-                        className={'tab' + (this.state.active === i ? " active" : "")}
+                        className={'tab' + (active === i ? " active" : "")}
                         onClick={e => this.setActive(i)}>
                         <input 
                             ref={'tab-title-'+i} 
@@ -200,7 +208,9 @@ class Playground extends Component {
                     onChange={v => this.setState(this.compiled_state(v))}
                 />
                 <Tester
+                    key={active}
                     tests={tests}
+                    setErrors={errors => this.setErrors(errors, active)}
                     setTests={e => this.setTests(e)}
                     grammar={this.state.compiled_grammar}
                     />

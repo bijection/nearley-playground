@@ -38,7 +38,7 @@ export default class Tester extends Component {
     }
     render(){
 
-        let grammar = get_exports(this.props.grammar)
+        // let grammar = get_exports(this.props.grammar)
 
         return <div className='tester' onKeyPress={e => {
             if(e.key === 'Enter' && e.shiftKey) {
@@ -48,7 +48,8 @@ export default class Tester extends Component {
         }}>
             <div className='tests'>
                 {this.props.tests.map((t, i) => 
-                    <Test grammar={grammar} 
+                    <Test grammar={this.props.grammar} 
+                        setErrors={this.props.setErrors}
                         key={i}
                         ref={'test'+i}
                         setTest={this.setTest.bind(this,i)}
@@ -72,8 +73,9 @@ function get_exports(source){
     return module.exports
 }
 
-
 class Test extends Component {
+    state={outputs: []}
+    worker = new Worker('./dist/worker.bundle.js')
     focus(){
         this.refs.input.focus()
     }
@@ -81,18 +83,36 @@ class Test extends Component {
         if(e.key === "Backspace" && e.target.value === '')
             this.props.deleteTest(true)
     }
+    runTest(t){
+        new Promise((res, rej) => {
+            this.worker.postMessage({test: t, source: this.props.grammar})
+            this.worker.onmessage = e => res(e.data)
+            setTimeout(() => {
+                this.worker.terminate()
+                this.worker = new Worker('./dist/worker.bundle.js')
+                rej('Possible infinite loop detected! Check your grammar for infinite recursion.')
+            }, 5000)
+        })
+        .then(outputs => this.setState({outputs}))
+        .catch(e => {
+            console.warn(e)
+            this.props.setErrors(e)
+            this.setState({outputs: []})
+        })
+    }
+    static getDerivedStateFromProps(props, state){
+        if(props.grammar !== state.grammar)
+            return {grammar, outputs, testing: false}
+    }
+    setTest(t){
+        this.props.setTest(t)
+        this.runTest(t)
+    }
     render(){
-        let outputs = [];
-
-        try {
-
-            let {ParserRules, ParserStart} = this.props.grammar
-            let parser = new nearley.Parser( ParserRules, ParserStart )
-            parser.feed(this.props.test)
-            outputs = parser.results
-            
-        } catch(e) {
-            // console.log(e, this.props)
+        let {outputs, testing} = this.state;
+        if(!testing) {
+            this.setState({testing: true})
+            this.setTest(this.props.test)
         }
 
         setImmediate(e => {
@@ -108,8 +128,7 @@ class Test extends Component {
             <textarea 
                 ref='input'
                 placeholder="Type a test..."
-                onInput={e => this.props.setTest(e.target.value)}
-                onChange={e => this.props.setTest(e.target.value)}
+                onChange={e => this.setTest(e.target.value)}
                 value={this.props.test}
                 onKeyDown={this.keyDown.bind(this)}
                 />

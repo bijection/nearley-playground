@@ -12,6 +12,6 @@ var server = new WebpackDevServer(compiler, {
     publicPath: config.output.publicPath
 });
 
-console.log('listening on localhost:' + port)
+console.log('listening on http://localhost:' + port)
 
 server.listen(port);

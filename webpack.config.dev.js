@@ -2,16 +2,21 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  mode: 'production',
   devtool: 'eval-source-map',
   entry: {
     client: [
       './src/client/index.js'
+    ],
+    worker: [
+      './src/worker/index.js'
     ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js',
     publicPath: '/dist/',
+    globalObject: `(typeof self !== 'undefined' ? self : this)`,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

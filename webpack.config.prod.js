@@ -6,11 +6,15 @@ module.exports = {
   entry: {
     client: [
       './src/client/index.js'
+    ],
+    worker: [
+      './src/worker/index.js'
     ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    globalObject: `(typeof self !== 'undefined' ? self : this)`,
   },
   plugins: [
     new webpack.DefinePlugin({
