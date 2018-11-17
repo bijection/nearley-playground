@@ -84,6 +84,11 @@ class Test extends Component {
             this.props.deleteTest(true)
     }
     runTest(t){
+        this.setState({
+            testingTest: t,
+            testingGrammar: this.props.grammar,
+        })
+
         new Promise((res, rej) => {
             this.worker.postMessage({test: t, source: this.props.grammar})
             this.worker.onmessage = e => {
@@ -103,10 +108,6 @@ class Test extends Component {
             this.setState({outputs: []})
         })
     }
-    static getDerivedStateFromProps(props, state){
-        if(props.grammar !== state.grammar)
-            return {grammar, outputs, testing: false}
-    }
     setTest(t){
         this.props.setTest(t)
         this.runTest(t)
@@ -116,10 +117,10 @@ class Test extends Component {
         this.worker.terminate()
     }
     render(){
-        let {outputs, testing} = this.state;
-        if(!testing) {
-            this.setState({testing: true})
-            this.setTest(this.props.test)
+        let {outputs} = this.state;
+        if(this.state.testingTest != this.props.test
+            || this.state.testingGrammar != this.props.grammar) {
+            this.runTest(this.props.test)
         }
 
         setImmediate(e => {
