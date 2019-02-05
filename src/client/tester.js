@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import nearley from 'nearley'
 import Inspector from 'react-inspector'
 import gen from './generate.js'
+import mooo from 'moo'
 
 export default class Tester extends Component {
     // state = {
@@ -67,8 +68,9 @@ export default class Tester extends Component {
     }
 }
 
-function get_exports(source){
-    let module = {exports:''}
+function get_exports(source) {
+    let moo = mooo
+    let module = { exports: '' }
     eval(source)
     return module.exports
 }
