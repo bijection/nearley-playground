@@ -19,7 +19,6 @@ export default class Tester extends Component {
         let changed = tests.slice(0)
         changed.splice(i, 1)
         this.props.setTests(changed)
-        console.log(shouldFocus)
         if(shouldFocus === true) setImmediate(e => {
             this.refs['test'+Math.min(i,changed.length - 1)].focus()
         })
