@@ -16,7 +16,8 @@ onmessage = function({ data }) {
     try {
         let parser = new nearley.Parser(get_exports(source))
         parser.feed(test)
-        outputs = parser.results
+        outputs = parser.results 
+        outputs = JSON.parse(JSON.stringify(outputs));
     } catch (e) {
         console.log(e)
     }
