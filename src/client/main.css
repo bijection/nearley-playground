@@ -169,7 +169,7 @@ a {
     //     display: block;
     // }
 }
-.test-add {
+.test-button {
     padding: 10px 20px;
     text-align: center;
     cursor: pointer;
@@ -178,7 +178,7 @@ a {
     border-right: 1px solid #ddd;
     flex-grow: 1;
 }
-.test-generate {
+.test-last-button {
     padding: 10px 20px;
     text-align: center;
     cursor: pointer;
