@@ -217,6 +217,18 @@ a {
     display: none;
 }
 
+.download-button {
+    position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+    right: 10px;
+    padding: 5px 10px;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 850px) {
     .cm-wrap {
         font-size: 12px !important;

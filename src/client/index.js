@@ -206,6 +206,7 @@ class Playground extends Component {
                     value={editor_value}
                     errors={errors}
                     onChange={v => this.setState(this.compiled_state(v))}
+                    grammar={this.state.compiled_grammar}
                 />
                 <Tester
                     key={active}

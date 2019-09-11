@@ -155,13 +155,25 @@ export default class Editor extends Component {
         // }
 
     }
+    downloadCompiled() {
+        const { grammar } = this.props
+        const element = document.createElement("a")
+        const file = new Blob([grammar], { type: "text/plain" })
+        element.href = URL.createObjectURL(file)
+        element.download = "grammar.js"
+        element.click()
+        URL.revokeObjectURL(element.href)
+    }
+
     render(){
         return <div className='editor'>
             <div className='shadow'/>
             <div className='cm-wrap' ref='wrap'></div>
             {this.props.errors.length 
                 ? <div className='errors'>{this.props.errors}</div>
-                : ''}
+                : <div className="download-button" onClick={e => this.downloadCompiled()}>
+                    Download Grammar as JS
+                </div>}
         </div>
     }
 }
