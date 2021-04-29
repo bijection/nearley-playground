@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nearley Parser Playground | Parse Grammars Online, From The Comfort Of Your Home!</title>
 <style type="text/css">
     body {
@@ -6,7 +6,7 @@
         margin: 0;
     }
     .header {
-        padding: 20px
+        padding: 20px;
     }
     .title {
         font-size: 30px;
@@ -22,35 +22,55 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;  
+        justify-content: space-around;
         text-align: center;
     }
-
 </style>
-<div id='mount'>
-    <div class='preload'>
-        <div class='header'>
-            <div class="title">⛹ Nearley Parser Playground</div>
+<div id="mount">
+    <div class="preload">
+        <div class="header">
+            <div class="title">
+                ⛹ Nearley Parser Playground
+            </div>
             <div>
-                Experiment with <a href="https://hardmath123.github.io/">Hardmath123</a>'s incredible 
-                <a href="http://nearley.js.org/">Nearley Parser</a>! Nearley will parse anything you throw at it (including ambiguous grammars!) without complaining or going into a <s>sulk</s> infinite loop. You can find the Nearley syntax spec <a href="https://github.com/Hardmath123/nearley#parser-specification">here</a>, more example grammars <a href="https://github.com/Hardmath123/nearley/tree/master/examples">here</a>, and this project's repo <a href="https://github.com/bijection/nearley-playground">here</a>. If you like playgrounds and stuff, consider <a href="https://twitter.com/intent/follow?user_id=4033676687">following me on twitter</a>!
+                Experiment with <a href="https://hardmath123.github.io/">Hardmath123</a>'s
+                incredible <a href="http://nearley.js.org/">Nearley Parser</a>! Nearley will parse
+                anything you throw at it (including ambiguous grammars!) without complaining or
+                going into a <s>sulk</s> infinite loop. You can find the Nearley syntax spec
+                <a href="https://github.com/Hardmath123/nearley#parser-specification">here</a>, more
+                example grammars
+                <a href="https://github.com/Hardmath123/nearley/tree/master/examples">here</a>, and
+                this project's repo
+                <a href="https://github.com/bijection/nearley-playground">here</a>. If you like
+                playgrounds and stuff, consider
+                <a href="https://twitter.com/intent/follow?user_id=4033676687"
+                    >following me on twitter</a
+                >!
             </div>
         </div>
-        <div class='loading-wrap'>
+        <div class="loading-wrap">
             Loading...
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src='./dist/client.bundle.js'></script>
+<script type="text/javascript" src="./dist/client.bundle.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ;(function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r
+        ;(i[r] =
+            i[r] ||
+            function () {
+                ;(i[r].q = i[r].q || []).push(arguments)
+            }),
+            (i[r].l = 1 * new Date())
+        ;(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0])
+        a.async = 1
+        a.src = g
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga')
 
-  ga('create', 'UA-83153710-5', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-83153710-5', 'auto')
+    ga('send', 'pageview')
 </script>
