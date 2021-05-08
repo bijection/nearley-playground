@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "codemirror": "^5.29.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "nearley": "^2.20.1",
     "randexp": "^0.4.6",
     "react": "^15.6.1",
