@@ -23,7 +23,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "codemirror": "^5.29.0",
+    "codemirror": "^5.58.2",
     "lodash": "^4.17.4",
     "nearley": "^2.20.1",
     "randexp": "^0.4.6",
